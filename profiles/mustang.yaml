@@ -1,0 +1,33 @@
+# Ford Mustang convertible hunt — Parth's weekend-car search.
+slug: mustang
+name: "Mustang Convertible Hunt"
+description: "Ford Mustang convertible, 2015 or newer, under $20,000 and 120,000 km, within 150 km of Hamilton ON. One owner and clean history preferred."
+home:
+  city: "Hamilton"
+  province: "ON"
+criteria:
+  makes:
+    - Ford
+  models:
+    - Mustang
+  body_styles:
+    - convertible
+  min_year: 2015
+  max_price: 20000
+  max_mileage_km: 120000
+  max_distance_km: 150
+preferences:
+  preferred_makes: []
+  excluded_makes: []
+  excluded_models: []
+  one_owner_preferred: true
+  clean_history_preferred: true
+scoring:
+  weights:
+    price: 0.45
+    mileage: 0.20
+    year: 0.15
+    history: 0.20
+alerts:
+  min_score: 70
+  watch_price_drop_pct: 5.0

@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "autohunt"
+version = "0.1.0"
+description = "Car-deal hunter: watches listings, scores deals and alerts you the moment a good one appears."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Parth", email = "872000@users.noreply.github.com" }]
+keywords = ["cars", "deals", "cli", "sqlite", "portfolio"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Environment :: Console",
+    "Topic :: Office/Business",
+]
+
+# No hard runtime dependencies: the profile reader falls back to a bundled
+# mini-YAML parser when PyYAML is absent, and the HTML report degrades
+# gracefully without matplotlib.
+dependencies = []
+
+[project.optional-dependencies]
+yaml = ["PyYAML>=6"]
+dev = ["pytest>=7", "matplotlib>=3.6"]
+
+[project.scripts]
+autohunt = "autohunt.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["autohunt*"]

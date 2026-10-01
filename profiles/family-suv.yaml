@@ -1,0 +1,43 @@
+# Family SUV / sedan hunt — the sensible daily driver search.
+slug: family-suv
+name: "Family SUV / Sedan"
+description: "Reliable SUV or sedan under $20,000 and 90,000 km, within 150 km of Hamilton ON. Honda/Toyota/Mazda preferred; Buick, Kia, Nissan and the Hyundai Sonata / Nissan Murano are excluded."
+home:
+  city: "Hamilton"
+  province: "ON"
+criteria:
+  makes:
+    - Honda
+    - Toyota
+    - Mazda
+  models: []
+  body_styles:
+    - suv
+    - sedan
+  min_year: 2015
+  max_price: 20000
+  max_mileage_km: 90000
+  max_distance_km: 150
+preferences:
+  preferred_makes:
+    - Honda
+    - Toyota
+    - Mazda
+  excluded_makes:
+    - Buick
+    - Kia
+    - Nissan
+  excluded_models:
+    - Hyundai Sonata
+    - Nissan Murano
+  one_owner_preferred: true
+  clean_history_preferred: true
+scoring:
+  weights:
+    price: 0.45
+    mileage: 0.20
+    year: 0.15
+    history: 0.20
+alerts:
+  min_score: 70
+  watch_price_drop_pct: 5.0
