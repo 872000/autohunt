@@ -251,6 +251,9 @@ def validate_profile(data: dict, source: str = "<profile>") -> None:
             raise ProfileError(f"{source}: criteria.{key} must be a number")
     if criteria["min_year"] > config.CURRENT_YEAR + 1:
         raise ProfileError(f"{source}: criteria.min_year is in the future")
+    for key in ("max_price", "max_mileage_km", "max_distance_km"):
+        if criteria[key] <= 0:
+            raise ProfileError(f"{source}: criteria.{key} must be positive")
 
     scoring = data.get("scoring", {})
     weights = scoring.get("weights", {}) if isinstance(scoring, dict) else {}

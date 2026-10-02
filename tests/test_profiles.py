@@ -102,3 +102,12 @@ def test_profile_loads_without_pyyaml(monkeypatch):
     profile = load_profile("profiles/mustang.yaml")
     assert profile["slug"] == "mustang"
     assert profile["criteria"]["makes"] == ["Ford"]
+
+
+def test_validate_rejects_nonpositive_criteria():
+    with pytest.raises(ProfileError):
+        validate_profile({
+            "slug": "x",
+            "criteria": {"min_year": 2015, "max_price": -5000, "max_mileage_km": 1,
+                         "max_distance_km": 1},
+        })
