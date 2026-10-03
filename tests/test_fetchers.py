@@ -1,4 +1,6 @@
 """Tests for listing fetchers."""
+from datetime import datetime, timedelta, timezone
+
 import pytest
 
 from autohunt import fetchers
@@ -37,3 +39,11 @@ def test_missing_history_stays_missing():
     listing = fetchers._normalize_listing(raw)
     assert listing["history"] is None
     assert listing["posted_at"]  # derived timestamp present
+
+
+def test_negative_posted_days_ago_never_produces_future_timestamp():
+    raw = {"id": "y", "title": "t", "make": "Ford", "model": "Mustang",
+           "year": 2018, "price": 15000, "mileage_km": 50000, "posted_days_ago": -5}
+    listing = fetchers._normalize_listing(raw)
+    posted_at = datetime.fromisoformat(listing["posted_at"])
+    assert posted_at <= datetime.now(timezone.utc) + timedelta(seconds=60)

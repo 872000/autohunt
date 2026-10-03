@@ -41,6 +41,8 @@ def _normalize_listing(raw: dict) -> dict:
         # No history supplied at all: keep it missing so scoring can flag it.
         listing["history"] = None
     days_ago = listing.pop("posted_days_ago", 0)
+    # Guard against bad data: a negative age would produce a future posted_at.
+    days_ago = max(0, days_ago)
     posted_at = datetime.now(timezone.utc) - timedelta(days=days_ago)
     listing["posted_at"] = posted_at.isoformat(timespec="seconds")
     listing.setdefault("source", "demo")
