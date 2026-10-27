@@ -131,6 +131,12 @@ def test_rebuilt_mustang_scores_low(mustang_profile, demo_listings):
     assert "rebuilt_title" in {f["code"] for f in rebuilt["red_flags"]}
 
 
+def test_negative_mileage_does_not_inflate_component(mustang_profile):
+    # Bad odometer data must not push the mileage component past 100.
+    result = score_listing(mustang_profile, make_listing(mileage_km=-5000), pool=[])
+    assert result["breakdown"]["mileage"] == 100.0
+
+
 def test_preferred_make_bonus(suv_profile):
     base = dict(suv_profile)
     listing = make_listing(make="Honda", model="Civic", body_style="sedan",

@@ -222,7 +222,9 @@ def score_listing(profile: dict, listing: dict, pool: list[dict] | None = None) 
     price_score = _price_score(ratio)
 
     max_km = criteria.get("max_mileage_km", 1) or 1
-    mileage_score = 100.0 * max(0.0, 1.0 - listing.get("mileage_km", 0) / max_km)
+    # Clamped like year_score: bad data (e.g. negative mileage) must not
+    # push a component past 100 and inflate the breakdown.
+    mileage_score = max(0.0, min(100.0, 100.0 * (1.0 - listing.get("mileage_km", 0) / max_km)))
 
     min_year = criteria.get("min_year", config.CURRENT_YEAR)
     span = max(1, config.CURRENT_YEAR - min_year + 1)
